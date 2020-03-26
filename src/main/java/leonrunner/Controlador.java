@@ -48,7 +48,7 @@ public class Controlador extends Acciones {
                             driverCH = this.openGridBrowser("chrome");
                             this.ElegirAcciones(driverCH,nextLine[8],nextLine[9],nextLine[10],nextLine[11],nextLine[6],nextLine[7], 1);
                             int steps= Integer.parseInt(nextLine[1]);
-                            for(int a=1;a<=steps;a++){
+                            for(int a=1;a<steps;a++){
                                nextLine = reader.readNext(); 
                                this.ElegirAcciones(driverCH,nextLine[8],nextLine[9],nextLine[10],nextLine[11],nextLine[6],nextLine[7], a+1); 
                             }

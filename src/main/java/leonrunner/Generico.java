@@ -243,6 +243,9 @@ public class Generico extends Evidence {
             case "xpath":
                 driver.findElement(By.xpath(Elemento)).click();
                 break;
+            case "xpathTexto":
+                driver.findElement(By.xpath("//*[text() = '"+Elemento+"']")).click();
+                break;
             case "class":
                 driver.findElement(By.className(Elemento)).click();
                 break;
