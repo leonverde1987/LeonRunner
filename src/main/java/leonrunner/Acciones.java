@@ -20,7 +20,7 @@ public class Acciones extends Generico{
             case "Clic":
                 this.clic_btn(driver, TipoObjeto, Objeto);
                 break;
-            case "IngresarDato":
+            case "IngresarTexto":
                 this.ingresar_texto(driver, TipoObjeto, Objeto, Dato);
                 break;
         }

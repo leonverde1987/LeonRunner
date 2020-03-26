@@ -113,7 +113,7 @@ public class Generico extends Evidence {
         }
         Thread.sleep(5000);
         try {
-            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.chrome.driver="+Config.getProperty("chromRutae")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("portChrome")+" -browser browserName=chrome";
+            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.chrome.driver="+Config.getProperty("chromeRuta")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("portChrome")+" -browser browserName=chrome";
             Runtime.getRuntime().exec(cmd); 
         } catch (IOException ioe) {
             System.out.println ("Chrome node: "+ioe);
