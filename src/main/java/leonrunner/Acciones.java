@@ -5,18 +5,23 @@
  */
 package leonrunner;
 
+import org.openqa.selenium.remote.RemoteWebDriver;
+
 /**
  *
  * @author Matias
  */
-public class Acciones {
-    public void ElegirAcciones(String TipoAccion, String TipoObjeto, String Objeto, String Dato, String Paso, String Resultado, int contador){
+public class Acciones extends Generico{
+    public void ElegirAcciones(RemoteWebDriver driver, String TipoAccion, String TipoObjeto, String Objeto, String Dato, String Paso, String Resultado, int contador){
         switch(TipoAccion){
             case "AbrirURL":
+                this.abrirURl(driver, Dato);
                 break;
             case "Clic":
+                this.clic_btn(driver, TipoObjeto, Objeto);
                 break;
             case "IngresarDato":
+                this.ingresar_texto(driver, TipoObjeto, Objeto, Dato);
                 break;
         }
     }
