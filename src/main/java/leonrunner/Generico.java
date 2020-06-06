@@ -10,16 +10,19 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import junit.framework.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.ie.InternetExplorerOptions;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.Select;
@@ -72,27 +75,29 @@ public class Generico extends Evidence {
 //                capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS,true);
 //                capabilities.setCapability(InternetExplorerDriver.IE_ENSURE_CLEAN_SESSION,false);
                 url = new URL("http://localhost:5559/wd/hub");
+                
                 driver = new RemoteWebDriver(url, ieOptions);
             }
             if("edge".equals(navegador)){
                 EdgeOptions optionEdge = new EdgeOptions();
                 //capabilities.setBrowserName(navegador);
                 //capabilities = DesiredCapabilities.edge();
-                url = new URL("http://localhost:5557/wd/hub");
+                url = new URL("http://localhost:5558/wd/hub");
                 driver = new RemoteWebDriver(url, optionEdge);
             }
             if("firefox".equals(navegador)){
+                driver = null;
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 //capabilities.setBrowserName(navegador);
                 //capabilities = DesiredCapabilities.firefox();
-                url = new URL("http://localhost:5556/wd/hub");
+                url = new URL("http://localhost:5557/wd/hub");
                 driver = new RemoteWebDriver(url, firefoxOptions);
             }
             
         }catch(Exception e){
             System.out.println(e);
         }
-
+            driver.manage().window().maximize();
             return driver;
         }
     
@@ -106,7 +111,7 @@ public class Generico extends Evidence {
         }
         Thread.sleep(5000);
         try {
-            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.gecko.driver="+Config.getProperty("geckoRuta")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("portFirefox")+" -browser browserName=firefox";
+            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.gecko.driver="+Config.getProperty("firefoxRuta")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("portFirefox")+" -browser browserName=firefox";
             Runtime.getRuntime().exec(cmd); 
         } catch (IOException ioe) {
             System.out.println ("Gecko node: "+ioe);
@@ -125,13 +130,13 @@ public class Generico extends Evidence {
         } catch (IOException ioe) {
             System.out.println ("Edege node: "+ioe);
         } 
-        Thread.sleep(5000);
+        Thread.sleep(5000);*/
         try {
-            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.ie.driver="+Config.getProperty("ie")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("iePort")+" -browser browserName=iexplorer";
+            String cmd = "cmd /c start cmd.exe /K java -Dwebdriver.ie.driver="+Config.getProperty("ieRuta")+" -jar "+Config.getProperty("seleniumServer")+" -role webdriver -hub http://localhost:5555/grid/register -port "+Config.getProperty("portIe")+" -browser browserName=iexplorer";
             Runtime.getRuntime().exec(cmd); 
         } catch (IOException ioe) {
-            System.out.println ("Edege node: "+ioe);
-        }*/
+            System.out.println ("IE node: "+ioe);
+        }
     }
     
     public void cierraNodosGrid(){
@@ -364,5 +369,23 @@ public class Generico extends Evidence {
                 break;
         }
         return texto;
+    }
+    
+    
+    public void cambiaPestana(RemoteWebDriver driver){
+        //driver.findElement(By.cssSelector("body")).sendKeys(Keys.CONTROL +"\t");
+//        Actions action= new Actions(driver); 
+//        action.keyDown(Keys.CONTROL).sendKeys(Keys.TAB).build().perform();
+//        String oldTab=driver.getWindowHandle(); 
+//        driver.findElement(pageObj.getL_Popup_Window()).click(); 
+//        ArrayList<String> newTab = new ArrayList<String>(driver.getWindowHandles()); 
+//        newTab.remove(oldTab); 
+//        driver.switchTo().window(newTab.get(0)); 
+//        WebElement ele = driver.findElement(pageObj.getI_input_name()); 
+//        ele.click(); 
+//        ele.sendKeys(name); 
+//        driver.findElement(pageObj.getI_submit()).click(); 
+//        driver.switchTo().window(oldTab);
+        
     }
 }

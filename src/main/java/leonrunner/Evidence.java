@@ -22,6 +22,7 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,7 +45,12 @@ import org.openqa.selenium.remote.RemoteWebDriver;
  */
 public class Evidence {
     
-     public void capturaDriver(RemoteWebDriver driver, String rutaEvidencia, int contador, String cp, String navegador) throws InterruptedException{
+    public Properties reporte=null;
+    public int exitoso=0;
+    public int fallido=0;
+    public int ejecucion=0;
+    
+    public void capturaDriver(RemoteWebDriver driver, String rutaEvidencia, int contador, String cp, String navegador) throws InterruptedException{
         File dir = this.crea_Carpeta(rutaEvidencia, cp, contador, navegador);
         Thread.sleep(3000);
         File scrFile = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE); 
@@ -350,7 +356,8 @@ public class Evidence {
     public void crearHTML(String CasoPrueba, String Resultado, int contador, List<String> Pasos, String rutaEvidencia, String modulo, String version, String navegador) throws IOException{
         FileWriter filewriter = null;
         PrintWriter printw = null;
-        String urlAbsoluta = rutaEvidencia+"//"+this.fechaFormato()+"//"+navegador+"//"+CasoPrueba.substring(0, 3)+"//"+this.totalArchivos(new File(rutaEvidencia+"//"+fechaFormato()+"//"+navegador+"//"+CasoPrueba.substring(0, 3)))+"//"+CasoPrueba+"//"+CasoPrueba;
+        String urlAbsoluta = "C:\\\\Ambiente\\\\evidencia\\\\"+this.fechaFormato()+"\\\\"+navegador+"\\\\"+CasoPrueba.substring(0, 3)+"\\\\"+this.totalArchivos(new File(rutaEvidencia+"\\\\"+fechaFormato()+"\\\\"+navegador+"\\\\"+CasoPrueba.substring(0, 3)))+"\\\\"+CasoPrueba+"\\\\"+CasoPrueba;
+        reporte = new  leonrunner.Generico().getPropetiesFile("C:\\Ambiente\\reporte\\config\\reporte.properties");
         try{
             filewriter = new FileWriter(rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\"+CasoPrueba+".html");//declarar el archivo
             printw = new PrintWriter(filewriter);//declarar un impresor
@@ -476,10 +483,10 @@ public class Evidence {
                 printw.println(".danger {background-color: #f44336;} /* Red */");
                 printw.println(".danger:hover {background: #da190b;}");
                 
-                printw.println("#tablatitulo { width: 50%; margin: 0 auto; -align: center;}");
+                printw.println("#tablatitulo { width: 90%; margin: 0 auto; -align: center;}");
                 
                 printw.println("#contenido { width: 100%; margin: 0 auto;font-size:12px;font-family: Georgia, 'Times New Roman', serif;}");
-                printw.println("#encabezado { width: 100%; margin: 0 auto; background-color: #58ACFA; color: #FF0000;}");//#2196F3;#819FF7
+                printw.println("#encabezado { width: 100%; margin: 0 auto; background-color: #FFF; color: #FF0000;}");//#2196F3;#819FF7;#58ACFA
                 
                 printw.println("#titulo {color: white;margin: 0;}");
                 
@@ -498,25 +505,15 @@ public class Evidence {
             printw.println("<div id=\"contenido\">");
             printw.println("<table id=\"encabezado\">");
             printw.println("<tr>");
-            printw.println("<td>");
-            printw.println("<img src=\""+rutaEvidencia+"\\gfa.png\" width=\"115\" height=\"30\">");
+            printw.println("<td width=\"30%\">");
+            printw.println("<img src=\"C:\\Ambiente\\reporte\\imagenes\\clicautomation.png\" width=\"150\">");
             printw.println("</td>");
             printw.println("<td>");
-            printw.println("</td>");
-            printw.println("<td>");
-            printw.println("<p align=\"right\"><img src=\""+rutaEvidencia+"\\testingit.png\" width=\"115\" height=\"30\"></p>");
-            printw.println("</td>");
-            printw.println("</tr>");
             
-//            printw.println("<tr height=\"50\">");
-//            printw.println("</tr>");
-            
-            printw.println("<tr><center>");
-            printw.println("<td colspan=\"3\">");
                 printw.println("<center><table id=\"tablatitulo\">");
                 printw.println("<tr>");
                 printw.println("<td colspan=\"2\">");
-                printw.println("<h2 class=\"titulo\">Reporte de Evidencia Pruebas Automatizadas</h2>");
+                printw.println("<h3 class=\"titulo\">Evidencia de Pruebas Automatizadas</h3>");
                 printw.println("</td>");
                 printw.println("</tr>");
                 printw.println("<tr>");
@@ -528,10 +525,10 @@ public class Evidence {
                 //printw.println("</td>");
                 printw.println("</tr>");
                 printw.println("<tr>");
-                printw.println("<td><a>Módulo:</a></td>");
-//                printw.println("<h5 class=\"titulo\">Módulo: </h5>");
-//                printw.println("</td>");
-                printw.println("<td><a>"+modulo+version+"</a></td>");
+//                printw.println("<td><a>Módulo:</a></td>");
+////                printw.println("<h5 class=\"titulo\">Módulo: </h5>");
+////                printw.println("</td>");
+//                printw.println("<td><a>"+modulo+version+"</a></td>");
 //                printw.println("<h5 class=\"titulo\">"+modulo+version+"</h5>");
 //                printw.println("</td>");
                 printw.println("</tr>");
@@ -577,6 +574,82 @@ public class Evidence {
                 printw.println("</td>");
                 printw.println("</tr>");
                 printw.println("</table><center>");
+            
+            printw.println("</td>");
+            printw.println("<td>");
+//            printw.println("<p align=\"right\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\cliente.png\" width=\"115\" height=\"30\"></p>");
+            printw.println("</td>");
+            printw.println("</tr>");
+            
+//            printw.println("<tr height=\"50\">");
+//            printw.println("</tr>");
+            
+            printw.println("<tr><center>");
+            printw.println("<td colspan=\"3\">");
+//                printw.println("<center><table id=\"tablatitulo\">");
+//                printw.println("<tr>");
+//                printw.println("<td colspan=\"2\">");
+//                printw.println("<h2 class=\"titulo\">Reporte de Evidencia Pruebas Automatizadas</h2>");
+//                printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("<tr>");
+//                printw.println("<td><a>Fecha Ejecución:</a></td>");
+////                printw.println("<h5 class=\"titulo\">Fecha de Ejecución: </h3>");
+////                printw.println("</td>");
+//                printw.println("<td><a>"+this.fechaFormato()+"</a></td>");
+//                //printw.println("<h5 class=\"titulo\">"+this.fechaFormato()+"</h5>");
+//                //printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("<tr>");
+//                printw.println("<td><a>Módulo:</a></td>");
+////                printw.println("<h5 class=\"titulo\">Módulo: </h5>");
+////                printw.println("</td>");
+//                printw.println("<td><a>"+modulo+version+"</a></td>");
+////                printw.println("<h5 class=\"titulo\">"+modulo+version+"</h5>");
+////                printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("<tr>");
+//                printw.println("<td><a>Navegador:</a></td>");
+////                printw.println("<h5 class=\"titulo\">Navegador: </h5>");
+////                printw.println("</td>");
+//                printw.println("<td><a>"+navegador+"</a></td>");
+////                printw.println("<h5 class=\"titulo\">"+navegador+"</h5>");
+////                printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("<tr>");
+//                printw.println("<td><a>Caso de Prueba</a></td>");
+////                printw.println("<h5 class=\"titulo\">Caso de Prueba: </h5>");
+////                printw.println("</td>");
+//                printw.println("<td><a>"+CasoPrueba+"</a></td>");
+////                printw.println("<h5 class=\"titulo\">"+CasoPrueba+"</h5>");
+////                printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("<tr>");
+//                printw.println("<td><a>Resultado:</a></td>");
+////                printw.println("<h5 class=\"titulo\">Resultado: </h5>");
+////                printw.println("</td>");
+//                printw.println("<td>");
+//                System.out.println(Resultado.substring(0, 7));
+//                int detalle=0;
+//                if("Fallido".equals(Resultado.substring(0, 7))){
+//                    printw.println("<button class=\"btn danger\">"+Resultado.substring(0, 7)+"</button>");
+//                    detalle++;
+//                    
+//                }
+//                if("Exitoso".equals(Resultado.substring(0, 7))){
+//                    printw.println("<button class=\"btn success\">"+Resultado.substring(0, 7)+"</button>");
+//                    
+//                }
+//                if(Resultado.length()>10){
+//                    if("Ejecución Fallida".equals(Resultado.substring(0, 17))){
+//                        printw.println("<button class=\"btn warning\">"+Resultado.substring(0, 17)+"</button>");
+//                        detalle++;
+//                    }
+//                }
+//                
+//                printw.println("</td>");
+//                printw.println("</tr>");
+//                printw.println("</table><center>");
             printw.println("</td>");
             printw.println("</center></tr>");
             printw.println("</tr>");
@@ -626,7 +699,7 @@ public class Evidence {
                         }
                         printw.println("<div class=\"panel\">");
                         try{
-                            printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"1000\" height=\"550\"></center></p>");
+                            printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"100%\" height=\"100%\"></center></p>");
                         }catch(Exception e){
                         }
                         printw.println("</div>");
@@ -639,7 +712,7 @@ public class Evidence {
                         }
                         printw.println("<div class=\"panel\">");
                         try{
-                            printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"1000\" height=\"550\"></center></p>");
+                            printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"100%\" height=\"100%\"></center></p>");
                         }catch(Exception e){
                         }
                         printw.println("</div>");
@@ -653,7 +726,7 @@ public class Evidence {
                             }
                             printw.println("<div class=\"panel\">");
                             try{
-                                printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"1000\" height=\"550\"></center></p>");
+                                printw.println("<p><center><img src=\""+rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\evidencia"+(cont+1)+".png\" width=\"100%\" height=\"100%\"></center></p>");
                             }catch(Exception e){
                             }
                             printw.println("</div>");
@@ -725,6 +798,8 @@ public class Evidence {
             System.out.println("Generado exitosamente");//si todo sale bien mostramos un mensaje de guardado exitoso
             
             this.archivoTexto(CasoPrueba, Resultado, rutaEvidencia, modulo, version, navegador, urlAbsoluta);
+            this.contarEstadisticas(navegador);
+            this.graficas(rutaEvidencia, exitoso, fallido, ejecucion);
             this.reporteGeneral(rutaEvidencia, navegador, modulo);
            }catch(IOException e){
                System.out.println("Error: "+e);
@@ -769,7 +844,7 @@ public class Evidence {
             printw.println("<html>");// lang=\"es-ES\">");
             printw.println("<head>");
             //printw.println("<meta charset=\"utf-8\">");
-            printw.println("<title>FrameWork Testing iT</title>");
+            printw.println("<title>Click Automation Report</title>");
             printw.println("<style>");
             printw.println("* {margin:0; padding:0;}");
             printw.println("a:link, a:visited, a:hover, a:active {color:#0f0;font-size:16px;}");
@@ -777,8 +852,8 @@ public class Evidence {
             printw.println("h1 {color:#fff;font-size:24px;}");
             printw.println("p {font-size:10px;}");
             printw.println("ul {list-style-type:none;}");
-            printw.println("#cabecera {color:#fff;background-color:#000;padding:10px;}");
-            printw.println("#cabeceraMenu {color:#999;background-color:#000;padding:20px;text-align:center;float:center;}");
+            printw.println("#cabecera {color:#fff;background-color:#339FFF;padding:10px;}");
+            printw.println("#cabeceraMenu {color:#999;background-color:#339FFF;padding:20px;text-align:center;float:center;}");
             printw.println("#contenedor {margin:0 auto;width:100%;}");
             printw.println("#contenido {background-color:#fff;width:100%;height:450px;}");
             printw.println(".divDetalle {background-color:#fff;float:center;width:100%;border:none;height:450px;}");
@@ -794,8 +869,8 @@ public class Evidence {
             printw.println("border-radius: 35px;");
             printw.println("}");
 
-            printw.println(".navegadores {background-color: #999;} /* Gris */");
-            printw.println(".navegadores:hover {background-color: #ddd;}");
+            printw.println(".navegadores {background-color: #000;} /* Gris */");
+            printw.println(".navegadores:hover {background-color: #999;}");
             printw.println(".navegadores:focus {outline: none;}");
             
             printw.println(".succes {background-color: #4CAF50;} /* Green */");
@@ -817,32 +892,51 @@ public class Evidence {
             
             
             printw.println("<div id=\"cabecera\">");
-            printw.println("<center><h1>Reporte General de Ejecuciones</h1></center>");
+            printw.println("<center><h1>Click Automation Report</h1></center>");
             printw.println("</div>");
             
             printw.println("<div id=\"cabeceraMenu\">");
             
-            printw.println("<button class=\"btn navegadores\" onClick=\"\"><img src=\"C:\\ambiente\\imagenes\\home.png\" width=\"25\" height=\"25\"/></button>");
-            printw.println("<button class=\"btn navegadores\" onClick=\"chrome()\"><img src=\"C:\\ambiente\\imagenes\\chrome.png\" width=\"25\" height=\"25\"/></button>");
-            printw.println("<button class=\"btn navegadores\" onClick=\"firefox()\"><img src=\"C:\\ambiente\\imagenes\\firefox.png\" width=\"25\" height=\"25\"/></button>");
-            printw.println("<button class=\"btn navegadores\" onClick=\"\"><img src=\"C:\\ambiente\\imagenes\\edge.png\" width=\"25\" height=\"25\"/></button>");
-            printw.println("<button class=\"btn navegadores\" onClick=\"\"><img src=\"C:\\ambiente\\imagenes\\safari.png\" width=\"25\" height=\"25\"/></button>");
-            printw.println("<button class=\"btn navegadores\" onClick=\"\"><img src=\"C:\\ambiente\\imagenes\\ie.png\" width=\"25\" height=\"25\"/></button>");
+            printw.println("<button class=\"btn navegadores\" onClick=\"estadistica()\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\home.png\" width=\"25\" height=\"25\"/></button>");
+            
+            if("si".equals(reporte.getProperty("chrome"))){
+                printw.println("<button class=\"btn navegadores\" onClick=\"chrome()\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\chrome.png\" width=\"25\" height=\"25\"/></button>");
+            }
+            if("si".equals(reporte.getProperty("firefox"))){
+                printw.println("<button class=\"btn navegadores\" onClick=\"firefox()\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\firefox.png\" width=\"25\" height=\"25\"/></button>");
+            }
+            if("si".equals(reporte.getProperty("edge"))){
+                printw.println("<button class=\"btn navegadores\" onClick=\"edge()\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\edge.png\" width=\"25\" height=\"25\"/></button>");
+            }
+            if("si".equals(reporte.getProperty("ie"))){
+                printw.println("<button class=\"btn navegadores\" onClick=\"ie()\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\ie.png\" width=\"25\" height=\"25\"/></button>");
+            }
+            //printw.println("<button class=\"btn navegadores\" onClick=\"\"><img src=\"C:\\Ambiente\\imagenes\\safari.png\" width=\"25\" height=\"25\"/></button>");
             
             printw.println("</div>");
             
             printw.println("<div id=\"contenido\">");
-            printw.println("<div id=\"contenidoChrome\" class=\"divDetalle\" style=\"display: none;\" >");
-            printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"chrome.html\"></iframe>");
-            printw.println("</div>");
-            printw.println("<div id=\"contenidoFirefox\" class=\"divDetalle\" style=\"display: none;\">");
-            printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"firefox.html\"></iframe>");
-            printw.println("</div>");
+                printw.println("<div id=\"contenidoEstadistica\" class=\"divDetalle\" style=\"display: block;\" >");
+                printw.println("<iframe id=\"frameDetalleEstadisticas\" class=\"frameDetalle\" src=\"Estadisticas.html\"></iframe>");
+                printw.println("</div>");
+                printw.println("<div id=\"contenidoChrome\" class=\"divDetalle\" style=\"display: none;\" >");
+                printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"Chrome.html\"></iframe>");
+                printw.println("</div>");
+                printw.println("<div id=\"contenidoFirefox\" class=\"divDetalle\" style=\"display: none;\">");
+                printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"Firefox.html\"></iframe>");
+                printw.println("</div>");
+                printw.println("<div id=\"contenidoEdge\" class=\"divDetalle\" style=\"display: none;\" >");
+                printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"Edge.html\"></iframe>");
+                printw.println("</div>");
+                printw.println("<div id=\"contenidoIe\" class=\"divDetalle\" style=\"display: none;\">");
+                printw.println("<iframe id=\"frameDetalle"+navegador+"\" class=\"frameDetalle\" src=\"Ie.html\"></iframe>");
+                printw.println("</div>");
+            
             printw.println("</div>");
             printw.println("</div>");
             printw.println("<footer>");
             printw.println("<div id=\"pie\">");
-            printw.println("<p>Testing IT Consulting S.A. de C.V. © | Todos los Derechos Reservados</p>");
+            printw.println("<p>Clic Automation © | Todos los Derechos Reservados</p>");
             printw.println("</div>");
             printw.println("</footer>");
             
@@ -851,10 +945,37 @@ public class Evidence {
             printw.println("function firefox() {");
             printw.println("document.getElementById('contenidoChrome').style.display='none';");
             printw.println("document.getElementById('contenidoFirefox').style.display='block';");
+            printw.println("document.getElementById('contenidoEdge').style.display='none';");
+            printw.println("document.getElementById('contenidoIe').style.display='none';");
+            printw.println("document.getElementById('contenidoEstadistica').style.display='none';");
             printw.println("}");
             printw.println("function chrome() {");
             printw.println("document.getElementById('contenidoFirefox').style.display='none';");
             printw.println("document.getElementById('contenidoChrome').style.display='block';");
+            printw.println("document.getElementById('contenidoEdge').style.display='none';");
+            printw.println("document.getElementById('contenidoIe').style.display='none';");
+            printw.println("document.getElementById('contenidoEstadistica').style.display='none';");
+            printw.println("}");
+            printw.println("function edge() {");
+            printw.println("document.getElementById('contenidoChrome').style.display='none';");
+            printw.println("document.getElementById('contenidoFirefox').style.display='none';");
+            printw.println("document.getElementById('contenidoIe').style.display='none';");
+            printw.println("document.getElementById('contenidoEdge').style.display='block';");
+            printw.println("document.getElementById('contenidoEstadistica').style.display='none';");
+            printw.println("}");
+            printw.println("function ie() {");
+            printw.println("document.getElementById('contenidoFirefox').style.display='none';");
+            printw.println("document.getElementById('contenidoChrome').style.display='none';");
+            printw.println("document.getElementById('contenidoEdge').style.display='none';");
+            printw.println("document.getElementById('contenidoIe').style.display='block';");
+            printw.println("document.getElementById('contenidoEstadistica').style.display='none';");
+            printw.println("function estadistica() {");
+            printw.println("document.getElementById('contenidoFirefox').style.display='none';");
+            printw.println("document.getElementById('contenidoChrome').style.display='none';");
+            printw.println("document.getElementById('contenidoEdge').style.display='none';");
+            printw.println("document.getElementById('contenidoIe').style.display='none';");
+            printw.println("document.getElementById('contenidoEstadistica').style.display='block';");
+            
             printw.println("}");
             printw.println("</script>");
             
@@ -918,12 +1039,18 @@ public class Evidence {
             
             printw.println("<div id=\"contenedor\">");
             printw.println("<div id=\"menu\">");
-            Scanner input = new Scanner(new File("C:\\evidencia\\"+this.fechaFormato()+"\\ejecucion"+navegador+this.fechaFormato()+".txt"));
+            Scanner input = new Scanner(new File("C:\\Ambiente\\evidencia\\"+this.fechaFormato()+"\\ejecucion"+navegador+this.fechaFormato()+".txt"));
             if("firefox".equals(navegador)){
-                printw.println("<center><img src=\"C:\\ambiente\\imagenes\\firefox.png\" width=\"30\" height=\"30\"/></center>");
+                printw.println("<center><img src=\"C:\\Ambiente\\reporte\\imagenes\\firefox.png\" width=\"30\" height=\"30\"/></center>");
             }
             if("chrome".equals(navegador)){
-                printw.println("<center><img src=\"C:\\ambiente\\imagenes\\chrome.png\" width=\"30\" height=\"30\"/></center>");
+                printw.println("<center><img src=\"C:\\Ambiente\\reporte\\imagenes\\chrome.png\" width=\"30\" height=\"30\"/></center>");
+            }
+            if("edge".equals(navegador)){
+                printw.println("<center><img src=\"C:\\Ambiente\\reporte\\imagenes\\edge.png\" width=\"30\" height=\"30\"/></center>");
+            }
+            if("ie".equals(navegador)){
+                printw.println("<center><img src=\"C:\\Ambiente\\reporte\\imagenes\\ie.png\" width=\"30\" height=\"30\"/></center>");
             }
             printw.println("<center><h3>Lista de Ejecuciones "+navegador+"</h3>");
             printw.println("<form>Busqueda: <input id=\"txtBusqueda\" type=\"text\" onkeyup=\"Buscar();\" /></form></center>");
@@ -949,9 +1076,13 @@ public class Evidence {
                         }
                     }    
                 }
-                if(a==3){                                    
-                    printw.println("<td width=\"35\"><button class=\"btn imahtml\" onClick=\"Frame('"+linea+".html')\"><img src=\"C:\\ambiente\\imagenes\\html.png\" width=\"25\" height=\"30\"/></button></td>");                                  
-                    printw.println("<td width=\"35\"><button class=\"btn imahtml\" onClick=\"Frame('"+linea+".pdf')\"><img src=\"C:\\ambiente\\imagenes\\pdf.png\" width=\"25\" height=\"30\"/></button></td>");
+                if(a==3){       
+                    if("si".equals(reporte.getProperty("html"))){
+                        printw.println("<td width=\"35\"><button class=\"btn imahtml\" onClick=\"Frame('"+linea+".html')\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\html.png\" width=\"25\" height=\"30\"/></button></td>");                                  
+                    }
+                    if("si".equals(reporte.getProperty("pdf"))){
+                        printw.println("<td width=\"35\"><button class=\"btn imahtml\" onClick=\"Frame('"+linea+".pdf')\"><img src=\"C:\\Ambiente\\reporte\\imagenes\\pdf.png\" width=\"25\" height=\"30\"/></button></td>");
+                    }
                     printw.println("</tr>");
                     a=1;
                 }else{
@@ -981,7 +1112,7 @@ public class Evidence {
             printw.println("var tabla = document.getElementById('tblEjecuciones');");
             printw.println("var busqueda = document.getElementById('txtBusqueda').value.toLowerCase();");
             printw.println("var cellsOfRow=\"\";var found=false;var compareWith=\"\";");
-            printw.println("for (var i = 1; i < tabla.rows.length; i++) {");
+            printw.println("for (var i = 0; i < tabla.rows.length; i++) {");
             printw.println("cellsOfRow = tabla.rows[i].getElementsByTagName('td');");
             printw.println("found = false;");
             printw.println("for (var j = 0; j < cellsOfRow.length && !found; j++) { compareWith = cellsOfRow[j].innerHTML.toLowerCase(); if (busqueda.length == 0 || (compareWith.indexOf(busqueda) > -1))");
@@ -998,6 +1129,70 @@ public class Evidence {
             printw.println("</html>");
             printw.close();
         }catch(IOException e){
+        }
+    }
+    
+    public void graficas(String rutaEvidencia, int exitoso, int fallido, int ejecucion) throws IOException{
+        FileWriter filewriter = null;
+        PrintWriter printw = null;
+        try{
+            filewriter = new FileWriter(rutaEvidencia+"//"+fechaFormato()+"//estadisticas.html");
+            printw = new PrintWriter(filewriter);
+            printw.println("<html>");
+            printw.println("<head>");
+            printw.println("<script type=\"text/javascript\" src=\"https://www.gstatic.com/charts/loader.js\"></script>");
+            printw.println("<script type=\"text/javascript\">");
+            printw.println("google.charts.load(\"current\", {packages:[\"corechart\"]});");
+            printw.println("google.charts.setOnLoadCallback(drawChart);");
+            printw.println("function drawChart() {");
+            printw.println("var data = google.visualization.arrayToDataTable([");
+            printw.println("['Total Casos de Prueba', 'Resultado'],");
+            printw.println("['Exitosos',     "+exitoso+"],");
+            printw.println("['Fallidos',      "+fallido+"],");
+            printw.println("['Ejecución Fallida',  "+ejecucion+"]");
+            printw.println("]);");
+
+            printw.println("var options = {");
+            printw.println("title: 'Ejecuciones Totales',");
+            printw.println("is3D: true,");
+            printw.println("colors: ['#4CAF50','red','#ff9800'],");
+            printw.println("};");
+
+            printw.println("var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));");
+            printw.println("chart.draw(data, options);");
+            printw.println("}");
+            printw.println("</script>");
+            printw.println("</head>");
+            printw.println("<body>");
+            printw.println("<div id=\"piechart_3d\" style=\"width: 500px; height: 300px;\"></div>");
+            printw.println("</body>");
+            printw.println("</html>");
+            printw.close();
+        }catch(IOException e){
+        }
+    }
+    
+    public void contarEstadisticas(String navegador) throws FileNotFoundException{
+        Scanner input = new Scanner(new File("C:\\Ambiente\\evidencia\\"+this.fechaFormato()+"\\ejecucion"+navegador+this.fechaFormato()+".txt"));
+        int a = 1;
+        while (input.hasNextLine()) {
+            String linea = input.nextLine();
+
+            if(a==2){
+                if("Exitoso".equals(linea)){
+                    exitoso++;
+                }
+                if("Fallido".equals(linea.substring(0, 7))){
+                    fallido++;
+                }
+                if(linea.length()>10){
+                    if("Ejecución Fallida".equals(linea.substring(0, 17))){
+                        ejecucion++;
+                    }
+                }    
+            }else{
+                a++;
+            }              
         }
     }
 }
