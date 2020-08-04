@@ -49,6 +49,7 @@ public class Evidence {
     public int exitoso=0;
     public int fallido=0;
     public int ejecucion=0;
+    public double calidad=0;
     
     public void capturaDriver(RemoteWebDriver driver, String rutaEvidencia, int contador, String cp, String navegador) throws InterruptedException{
         File dir = this.crea_Carpeta(rutaEvidencia, cp, contador, navegador);
@@ -799,13 +800,18 @@ public class Evidence {
             
             this.archivoTexto(CasoPrueba, Resultado, rutaEvidencia, modulo, version, navegador, urlAbsoluta);
             this.contarEstadisticas(navegador);
-            this.graficas(rutaEvidencia, exitoso, fallido, ejecucion);
+            this.graficas(rutaEvidencia, exitoso, fallido, ejecucion, this.porcentajeCalidad(exitoso, fallido, ejecucion));
             this.reporteGeneral(rutaEvidencia, navegador, modulo);
            }catch(IOException e){
                System.out.println("Error: "+e);
            }
     }
     
+    public double porcentajeCalidad(int exitoso, int fallidos, int ejecucion){
+        int total = fallidos + exitoso + ejecucion;
+        double porcentaje = exitoso / total;
+        return porcentaje * 100;
+    }
     
     public void archivoTexto(String CasoPrueba, String Resultado, String rutaEvidencia, String modulo, String version, String navegador, String EvidenciaAbsoluta){
 
@@ -969,13 +975,13 @@ public class Evidence {
             printw.println("document.getElementById('contenidoEdge').style.display='none';");
             printw.println("document.getElementById('contenidoIe').style.display='block';");
             printw.println("document.getElementById('contenidoEstadistica').style.display='none';");
+            printw.println("}");
             printw.println("function estadistica() {");
             printw.println("document.getElementById('contenidoFirefox').style.display='none';");
             printw.println("document.getElementById('contenidoChrome').style.display='none';");
             printw.println("document.getElementById('contenidoEdge').style.display='none';");
             printw.println("document.getElementById('contenidoIe').style.display='none';");
             printw.println("document.getElementById('contenidoEstadistica').style.display='block';");
-            
             printw.println("}");
             printw.println("</script>");
             
@@ -1132,7 +1138,7 @@ public class Evidence {
         }
     }
     
-    public void graficas(String rutaEvidencia, int exitoso, int fallido, int ejecucion) throws IOException{
+    public void graficas(String rutaEvidencia, int exitoso, int fallido, int ejecucion, double calidad) throws IOException{
         FileWriter filewriter = null;
         PrintWriter printw = null;
         try{
@@ -1164,7 +1170,18 @@ public class Evidence {
             printw.println("</script>");
             printw.println("</head>");
             printw.println("<body>");
-            printw.println("<div id=\"piechart_3d\" style=\"width: 500px; height: 300px;\"></div>");
+            printw.println("<div style=\"width:1100px; text-align:center;\"></div>");
+            printw.println("<div id=\"piechart_3d\" style=\"width: 700px; height: 500px; margin:0px auto;\"></div>");
+//            printw.println("<div id=\"totales\" style=\"width: 200px; height: 300px; margin:0px auto;\">");
+////            printw.println("<table>");
+////            printw.println("<tr><td><h3>Exitosos: "+exitoso+"<h3></td></tr>");
+////            printw.println("<tr><td><h3>Fallidos: "+fallido+"<h3></td></tr>");
+////            printw.println("<tr><td><h3>Ejecución Fallida: "+ejecucion+"<h3></td></tr>");
+////            printw.println("<tr><td><h3>Prcentaje de Calidad: "+calidad+"<h3></td></tr>");
+////            printw.println("</table>");
+//            printw.println("</div>");
+            
+            printw.println("</div>");
             printw.println("</body>");
             printw.println("</html>");
             printw.close();

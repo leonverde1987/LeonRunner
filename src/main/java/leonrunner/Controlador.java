@@ -84,9 +84,9 @@ public class Controlador extends Acciones {
                     for(int a=1;a<steps;a++){
                        nextLine = reader.readNext(); 
                        Pasos.add(nextLine[7]);
-                       this.ElegirAcciones(driver,nextLine[8],nextLine[9],nextLine[10],nextLine[11],nextLine[6],nextLine[7], a+1, navegador, CP); 
+                       String resultado = this.ElegirAcciones(driver,nextLine[8],nextLine[9],nextLine[10],nextLine[11],nextLine[6],nextLine[7], a+1, navegador, CP); 
                        if((a+1) == steps){
-                           new leonrunner.Evidence().crearHTML(CP, "Exitoso", steps, Pasos, "C:\\Ambiente\\evidencia\\", "", "", navegador);//.finalizarTestCase(driverCH, CP, Resultado, steps, Pasos, "C:\\Ambiente\\evidencia\\", "", "", "Chrome");
+                           new leonrunner.Evidence().crearHTML(CP, resultado, steps, Pasos, "C:\\Ambiente\\evidencia\\", "", "", navegador);//.finalizarTestCase(driverCH, CP, Resultado, steps, Pasos, "C:\\Ambiente\\evidencia\\", "", "", "Chrome");
                           
                        }
                     }

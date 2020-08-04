@@ -301,16 +301,11 @@ public class Generico extends Evidence {
                 driver.findElement(By.name(Elemento)).submit();
                 break;
             case "xpath":
-                try{
-//                    WebElement element = new WebDriverWait(driver, 20).until(ExpectedConditions.elementToBeClickable(By.id(Elemento)));
-//                    element.click();
-                    //this.dormir10seg();
+                
                     WebElement el = driver.findElement(By.xpath(Elemento));
                     el.sendKeys(Texto);
                     el.submit();
-                }catch(Exception e){
-                    System.out.println("Catch: "+e);
-                }
+                
                 break;
         }
     }
@@ -361,11 +356,7 @@ public class Generico extends Evidence {
                 texto = driver.findElement(By.name(Elemento)).getText();
                 break;
             case "xpath":
-                try{
-                    texto = driver.findElement(By.xpath(Elemento)).getText();
-                }catch(Exception e){
-                    System.out.println("Mensaje: "+e);
-                }
+                texto = driver.findElement(By.xpath(Elemento)).getText();
                 break;
         }
         return texto;
