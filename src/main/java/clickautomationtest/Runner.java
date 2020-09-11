@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package leonrunner;
+package clickautomationtest;
 
 import com.opencsv.CSVReader;
 import java.io.FileReader;
@@ -16,6 +16,13 @@ import java.util.Arrays;
  */
 public class Runner{
    public static void main(String[] args) throws IOException {
-       new leonrunner.Controlador().LeerArchivo();
+       try{
+       System.out.println("Uno");
+       //new clickautomationtest.Controlador().LeerArchivo();
+       new clickautomationtest.Controlador().LeerArchivo();
+       System.out.println("Dos");
+       }catch(Exception e){
+           System.out.println("Excepción: "+e);
+       }
    }
 }

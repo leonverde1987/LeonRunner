@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package leonrunner;
+package clickautomationtest;
 
 import com.lowagie.text.BadElementException;
 import com.lowagie.text.Cell;
@@ -358,7 +358,7 @@ public class Evidence {
         FileWriter filewriter = null;
         PrintWriter printw = null;
         String urlAbsoluta = "C:\\\\Ambiente\\\\evidencia\\\\"+this.fechaFormato()+"\\\\"+navegador+"\\\\"+CasoPrueba.substring(0, 3)+"\\\\"+this.totalArchivos(new File(rutaEvidencia+"\\\\"+fechaFormato()+"\\\\"+navegador+"\\\\"+CasoPrueba.substring(0, 3)))+"\\\\"+CasoPrueba+"\\\\"+CasoPrueba;
-        reporte = new  leonrunner.Generico().getPropetiesFile("C:\\Ambiente\\reporte\\config\\reporte.properties");
+        reporte = new  clickautomationtest.Generico().getPropetiesFile("C:\\Ambiente\\reporte\\config\\reporte.properties");
         try{
             filewriter = new FileWriter(rutaEvidencia+"\\"+this.fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)+"\\"+this.totalArchivos(new File(rutaEvidencia+"\\"+fechaFormato()+"\\"+navegador+"\\"+CasoPrueba.substring(0, 3)))+"\\"+CasoPrueba+"\\"+CasoPrueba+".html");//declarar el archivo
             printw = new PrintWriter(filewriter);//declarar un impresor

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package leonrunner;
+package clickautomationtest;
 
 import com.opencsv.CSVReader;
 import java.io.FileReader;
@@ -12,8 +12,8 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import static leonrunner.Controlador.QUOTE;
-import static leonrunner.Controlador.SEPARATOR;
+import static clickautomationtest.Controlador.QUOTE;
+import static clickautomationtest.Controlador.SEPARATOR;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
